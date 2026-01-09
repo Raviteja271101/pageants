@@ -28,12 +28,12 @@ const CarouselSection = () => {
   const speedMultiplier = 0.8;
 
   const items = [
-    { id: "01", title: "International Credibility", desc: "Backed by Fashion TV's 28 years of global authority in fashion & lifestyle." },
+    { id: "01", title: "International Credibility", desc: "Get Backed by Fashion TV's 28 years of global authority in fashion & lifestyle." },
     { id: "02", title: "Training & Grooming", desc: "Work with top industry mentors, choreographers, fitness experts, & stylists." },
     { id: "03", title: "Launchpad For Career", desc: "Walk global runways and be featured in major campaigns & entertainment media." },
-    { id: "04", title: "Global Exposure", desc: "Appears across Fashion TV’s worldwide network broadcast in 196 countries." },
+    { id: "04", title: "Global Exposure", desc: "Appears across Fashion TV’s worldwide network broadcast in 196countries with a reach of 2 billion viewers." },
     { id: "05", title: "Luxury, Prestige & Exclusivity", desc: "Experience the highest standard of production and pageantry India has seen." },
-    { id: "06", title: "Build an international network", desc: "Establish long-lasting and fruitful relations with industry stalwarts." },
+    { id: "06", title: "Build an international network", desc: "Establish long-lasting and fruitful relations with industry stalwarts and get noticed in the right rooms." },
   ];
 
   const handleMouseMove = (e) => {
@@ -53,12 +53,30 @@ const CarouselSection = () => {
 
     const itemWidth = rect.width / 3;
     const totalItemsWidth = items.length * itemWidth;
-    const scrollableWidth = totalItemsWidth - rect.width;
+    
+    // Calculate scroll positions to ensure first and last items are fully visible
+    // When cursor at left (0%): First item should be fully visible
+    // When cursor at right (100%): Last item should be fully visible
+    
+    // The scrollable width is how much we can scroll
+    const baseScrollableWidth = totalItemsWidth - rect.width;
+    
+    // To show the last item fully, we need to scroll a bit more
+    // The last item's right edge should be at the container's right edge
+    // We need: totalItemsWidth - rect.width, but add buffer for full visibility
+    const buffer = itemWidth * 0.2; // Buffer to ensure items aren't clipped
+    const maxScroll = baseScrollableWidth + buffer;
+    
+    // Start position: 0 (first item fully visible at left edge)
+    const minScroll = 0;
+    const scrollRange = maxScroll - minScroll;
     
     const normalizedX = Math.max(0, Math.min(1, xRel / rect.width));
     const scaledInput = normalizedX / speedMultiplier;
     const clampedInput = Math.max(0, Math.min(1, scaledInput));
-    const scrollPosition = clampedInput * scrollableWidth;
+    
+    // Map cursor position to scroll range
+    const scrollPosition = minScroll + (clampedInput * scrollRange);
     carouselX.set(-scrollPosition);
   };
 
