@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+
+@font-face {
+    font-family: "obviously";
+    src: url('/fonts/ObviouslyDemo-Black.otf');
+}
+.obviously{
+    font-family:"obviously";
+}
+
+@font-face {
+    font-family: "grotesk-medium";
+    src: url('/fonts/NeueHaasDisplayMediu.ttf') format("truetype");
+}
+.grotesk-medium{
+    font-family: "grotesk-medium";
+}
+
+@font-face {
+    font-family: "grotesk-roman";
+    src: url('/fonts/NeueHaasDisplayRoman.ttf') format("truetype");
+}
+.grotesk-roman{
+    font-family: "grotesk-roman";
+}
